@@ -9,7 +9,7 @@ PoC de Java 8+ Spring Boot com Kubernetes
 * AngularJS;
 * HTML 5;
 
-###Backend:
+### Backend:
 * Java (versão mínima 8.);
 * Springboot; *
 * Springdata; *
@@ -17,30 +17,30 @@ PoC de Java 8+ Spring Boot com Kubernetes
 * SpringBatch;
 * SpringSecurity;
 
-###Banco de Dados:
+### Banco de Dados:
 . SQL, Oracle ou PostgreSQL *
 ###Repositório de controle de versão:
 . Git *
 
 
-###Dev Environment
+### Dev Environment
 * Maven (versão mínima 3.5.3); *
 * [Fabric8 (plugin maven para build e deployment no kubernetes);](http://spring.fabric8.io "fabric8")  
 
 
-##Java
+## Java
 Para a execução
 
 
-##Helm
+## Helm
 [Helm](https://www.helm.sh helm) é uma ferramenta para gerenciar charts Kubernetes. Charts são pacotes 
 de recursos Kubernetes pré-configurados.
 
-###Instalacao
+### Instalacao
 * https://docs.helm.sh/using_helm/#installing-helm
 
 ---
-##Postgresql
+## Postgresql
 Instalação no kubernetes 
 
 ```bash
@@ -110,7 +110,7 @@ To connect to your database directly from outside the K8s cluster:
 ```
 
 
-###fabric8 maven plugin
+### fabric8 maven plugin
 
 Para o build e deployment dos serviços (spa-ui, api-gateway, auth-server e todo-service) será utilizado o plugin fabric8. 
 
