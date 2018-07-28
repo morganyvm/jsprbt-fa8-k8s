@@ -19,7 +19,8 @@ PoC de Java 8+ Spring Boot com Kubernetes
 
 ### Banco de Dados:
 . SQL, Oracle ou PostgreSQL *
-###Repositório de controle de versão:
+
+### Repositório de controle de versão:
 . Git *
 
 
