@@ -32,12 +32,15 @@ git clone https://github.com/morganyvm/jsprbt-fa8-k8s.git
 ```
 
 ### Dev Environment
-* Maven (versão mínima 3.5.3); *
+* Maven; *
+(versão mínima 3.5.3)
+
 * [Fabric8 (plugin maven para build e deployment no kubernetes);](http://spring.fabric8.io "fabric8")  
 
 
 ## Java
-Para a execução
+Necessário para o ambiente de desenvolvimento (`build`, testes e empacotamento) e para a execução das aplicações spring boot, executando dentro dos `containers` Docker.
+Para os `containers` Docker a implementação selecionada é o OpenJDK. E a versão mínima da JVM é a versão 8 (OpenJDK 8 update 131), pois, somente à partir dessa versão do OpenJDK a JVM passa a entender os limites de memória e cpu dos `containers` Docker.
 
 
 ## Helm
@@ -120,7 +123,12 @@ To connect to your database directly from outside the K8s cluster:
 
 ### fabric8 maven plugin
 
-Para o build e deployment dos serviços (spa-ui, api-gateway, auth-server e todo-service) será utilizado o plugin fabric8. 
+Para o build e deployment dos serviços (spa-ui, api-gateway, auth-server e todo-service) será utilizado o plugin fabric8.
+
+O plugin fabric8 será responsável por empacotar as aplicações no `container` Docker e montar os graphs [Helm](https://www.helm.sh helm) para `deployment` no Kubernetes.
+
+Para implantar (`deployment`) os graphs helm no Kubernetes basta executar o comando abaixo:  
+  
 
 ```bash
 mvn clean install fabric8:deploy
