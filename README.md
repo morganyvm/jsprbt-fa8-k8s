@@ -23,6 +23,13 @@ PoC de Java 8+ Spring Boot com Kubernetes
 ### Repositório de controle de versão:
 * Git *
 
+Instale o git de acordo com o sistema operacional utilizado.
+
+Clone este repositório:
+
+```bash
+git clone https://github.com/morganyvm/jsprbt-fa8-k8s.git
+```
 
 ### Dev Environment
 * Maven (versão mínima 3.5.3); *
