@@ -18,10 +18,10 @@ PoC de Java 8+ Spring Boot com Kubernetes
 * SpringSecurity;
 
 ### Banco de Dados:
-. SQL, Oracle ou PostgreSQL *
+* SQL, Oracle ou PostgreSQL *
 
 ### Repositório de controle de versão:
-. Git *
+* Git *
 
 
 ### Dev Environment
