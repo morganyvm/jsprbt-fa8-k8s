@@ -11,10 +11,14 @@
 	<name>jsprbt-fa8-k8s</name>
 	<description>Angular SPA (Single Page Application) + Spring Boot running on Kubernetes</description>
 
+	<prerequisites>
+		<maven>[3.5.3,)</maven>
+	</prerequisites>
 
 	<modules>
 		<module>api-gateway</module>
 		<module>todo-service</module>
+<!-- 		<module>spa-ui</module> -->
 	</modules>
 	
 </project>
