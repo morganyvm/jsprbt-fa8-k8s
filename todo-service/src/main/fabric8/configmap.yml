@@ -1,0 +1,6 @@
+data:
+  application.yml: |
+    # spring application yaml file
+    welcome = Hello from Kubernetes ConfigMap!!!
+    dummy = some value |
+    

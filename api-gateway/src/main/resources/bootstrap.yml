@@ -1,0 +1,10 @@
+# veja http://cloud.spring.io/spring-cloud-static/spring-cloud-config/2.0.0.RELEASE/single/spring-cloud-config.html#_spring_cloud_config_server
+spring:
+  application:
+    name: gateway
+encrypt:
+  failOnError: false
+#logging:
+#  level:
+#    root: INFO
+#    org.springframework.security: INFO
