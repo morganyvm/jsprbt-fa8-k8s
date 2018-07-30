@@ -1,0 +1,8 @@
+metadata:
+  name: ${project.artifactId}
+data:
+  application.yml: |
+    # spring application yaml file
+    # redis rate-limit-db configuration
+    # spring:
+      

@@ -1,0 +1,33 @@
+metadata:
+  annotations:
+    configmap.fabric8.io/update-on-change: ${project.artifactId}
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        -
+          resources:
+            requests:
+              cpu: "0.2"
+              memory: 256Mi
+            limits:
+              cpu: "1.0"
+              memory: 256Mi
+          env:
+            - name: KUBERNETES_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+            - name: JAVA_OPTS
+              value: "-Dkubernate.namespace=${KUBERNETES_NAMESPACE}"
+          volumeMounts:
+            - name: config
+              # veja https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html#boot-features-external-config-application-property-files
+              mountPath: /deployments/config
+          restartPolicy: Never
+      volumes:
+        - name: config
+          configMap:
+            name: ${project.artifactId}
