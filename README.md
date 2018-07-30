@@ -350,7 +350,7 @@ mvn clean install fabric8:deploy
 * [Helm Redis Chart](https://github.com/helm/charts/tree/master/stable/redis "Redis")
 
 
-* [Helm Ingress Nginx](Ref.: https://kubernetes.github.io/ingress-nginx/deploy/ "Ingress Nginx")
+* [Helm Ingress Nginx](https://kubernetes.github.io/ingress-nginx/deploy/ "Ingress Nginx")
 
 
 * [K8s ConfigMap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap#add-configmap-data-to-a-volume "ConfigMap") 
