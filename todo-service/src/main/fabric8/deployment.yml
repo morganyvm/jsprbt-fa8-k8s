@@ -5,13 +5,6 @@ spec:
   replicas: 1
   template:
     spec:
-      volumes:
-        - name: config
-          configMap:
-            name: ${project.artifactId}
-            items:
-            - key: application.yml
-              path: application.yml
       containers:
         -
           resources:
@@ -22,10 +15,28 @@ spec:
               cpu: "1.0"
               memory: 256Mi
           env:
-            - name: FOO
-              value: bar
             - name: KUBERNETES_NAMESPACE
               valueFrom:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: metadata.namespace
+            # Configura a senha de acesso ao banco de dados obtida do secret criado junto ao helm criou o banco de dados
+            # O usuario sera sempre fixo "todo-user", conforme especificado no configmap responsavel por gerar as configuracoes 
+            # para gerar o application.yml adicional para o ambiente de execucao do container no K8S
+            - name: DB_SECRET_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: todo-db-service-postgresql
+                  key: postgres-password
+          volumeMounts:
+            - name: config
+              # veja https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html#boot-features-external-config-application-property-files
+              mountPath: /deployments/config
+          restartPolicy: Never
+      volumes:
+        - name: config
+          configMap:
+            # Provide the name of the ConfigMap containing the files you want
+            # to add to the container
+            name: ${project.artifactId}
+          

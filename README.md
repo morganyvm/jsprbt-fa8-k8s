@@ -55,58 +55,58 @@ de recursos Kubernetes pré-configurados.
 Instalação no kubernetes 
 
 ```bash
-$ helm install --name todo-db \
-  --set postgresUser=todo-user,postgresPassword=secretpassword,postgresDatabase=todo-database \
+$ helm install --name todo-db-service \
+  --set postgresUser=todo-user,postgresPassword=${random},postgresDatabase=todo-db \
     stable/postgresql
 ```
 
 A execução do comando acima vai imprimir algo similar ao resultado abaixo: 
 
 ```bash
-NAME:   todo-db
-LAST DEPLOYED: Thu Jul 26 23:08:52 2018
+NAME:   todo-db-service
+LAST DEPLOYED: Sun Jul 29 20:07:49 2018
 NAMESPACE: default
 STATUS: DEPLOYED
 
 RESOURCES:
-==> v1/Pod(related)
-NAME                                 READY  STATUS   RESTARTS  AGE
-todo-db-postgresql-5dfc478b59-qwhlx  0/1    Pending  0         1s
-
-==> v1/Secret
-NAME                TYPE    DATA  AGE
-todo-db-postgresql  Opaque  1     1s
-
 ==> v1/ConfigMap
-NAME                DATA  AGE
-todo-db-postgresql  0     1s
+NAME                        DATA  AGE
+todo-db-service-postgresql  0     0s
 
 ==> v1/PersistentVolumeClaim
-NAME                STATUS   VOLUME    CAPACITY  ACCESS MODES  STORAGECLASS  AGE
-todo-db-postgresql  Pending  hostpath  1s
+NAME                        STATUS   VOLUME    CAPACITY  ACCESS MODES  STORAGECLASS  AGE
+todo-db-service-postgresql  Pending  hostpath  0s
 
 ==> v1/Service
-NAME                TYPE       CLUSTER-IP     EXTERNAL-IP  PORT(S)   AGE
-todo-db-postgresql  ClusterIP  10.108.214.99  <none>       5432/TCP  1s
+NAME                        TYPE       CLUSTER-IP     EXTERNAL-IP  PORT(S)   AGE
+todo-db-service-postgresql  ClusterIP  10.106.203.50  <none>       5432/TCP  0s
 
 ==> v1beta1/Deployment
-NAME                DESIRED  CURRENT  UP-TO-DATE  AVAILABLE  AGE
-todo-db-postgresql  1        1        1           0          1s
+NAME                        DESIRED  CURRENT  UP-TO-DATE  AVAILABLE  AGE
+todo-db-service-postgresql  1        1        1           0          0s
+
+==> v1/Pod(related)
+NAME                                         READY  STATUS   RESTARTS  AGE
+todo-db-service-postgresql-65d88cb9c8-p4g8z  0/1    Pending  0         0s
+
+==> v1/Secret
+NAME                        TYPE    DATA  AGE
+todo-db-service-postgresql  Opaque  1     0s
 
 
 NOTES:
 PostgreSQL can be accessed via port 5432 on the following DNS name from within your cluster:
-todo-db-postgresql.default.svc.cluster.local
+todo-db-service-postgresql.default.svc.cluster.local
 To get your user password run:
 
-    PGPASSWORD=$(kubectl get secret --namespace default todo-db-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode; echo)
+    PGPASSWORD=$(kubectl get secret --namespace default todo-db-service-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode; echo)
 
 To connect to your database run the following command (using the env variable from above):
 
-   kubectl run --namespace default todo-db-postgresql-client --restart=Never --rm --tty -i --image postgres \
+   kubectl run --namespace default todo-db-service-postgresql-client --restart=Never --rm --tty -i --image postgres \
    --env "PGPASSWORD=$PGPASSWORD" \
    --command -- psql -U todo-user \
-   -h todo-db-postgresql todo-database
+   -h todo-db-service-postgresql todo-db
 
 
 
@@ -115,7 +115,7 @@ To connect to your database directly from outside the K8s cluster:
      PGPORT=5432
 
      # Execute the following commands to route the connection:
-     export POD_NAME=$(kubectl get pods --namespace default -l "app=postgresql,release=todo-db" -o jsonpath="{.items[0].metadata.name}")
+     export POD_NAME=$(kubectl get pods --namespace default -l "app=postgresql,release=todo-db-service" -o jsonpath="{.items[0].metadata.name}")
      kubectl port-forward --namespace default $POD_NAME 5432:5432
 
 ```

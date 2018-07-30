@@ -1,10 +1,14 @@
-
 # veja http://cloud.spring.io/spring-cloud-static/spring-cloud-config/2.0.0.RELEASE/single/spring-cloud-config.html#_spring_cloud_config_server
-  
-      
-encrypt:
-  failOnError: false
+#spring:
+#  profiles:
+#    active:
+#    - k8s
+#  config:
+#    location: /deployments/config
+#
 #logging:
 #  level:
-#    root: INFO
-#    org.springframework.security: INFO
+#    root: DEBUG
+#    org.springframework.security: DEBUG
+ 
+ 
