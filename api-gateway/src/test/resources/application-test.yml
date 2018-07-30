@@ -8,10 +8,12 @@ spring:
       routes:
       - id: requestratelimiter_route
         uri: http://todo-service:8080
+        predicates:
+          - Path=/todos/{segment}
         filters:
         - name: RequestRateLimiter
           args:
             redis-rate-limiter.replenishRate: 10
             redis-rate-limiter.burstCapacity: 20
-  
+    
   

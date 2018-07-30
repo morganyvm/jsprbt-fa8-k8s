@@ -1,9 +1,6 @@
 # jsprbt-fa8-k8s
 PoC de Java 8+ Spring Boot com Kubernetes 
 
-[![Architecture][id] 
-
-[Architecture]: Slide1.png "Architecture"
 
 
 ---
@@ -199,6 +196,127 @@ To connect to your database from outside the cluster execute the following comma
 ```
 
 
+### Ingress Controller
+Criação do Ingress Controller com o Nginx.
+
+```bash
+$  helm install stable/nginx-ingress --name challenge-ingress-controller-nginx
+```
+
+Ou abaixo com RBAC (Role Based Access Control)
+ 
+```bash
+$  helm install stable/nginx-ingress --name challenge-ingress-controller-nginx --set rbac.create=true
+```
+
+A execução do comando acima vai imprimir algo similar ao resultado abaixo:
+
+```bash
+NAME:   challenge-ingress-controller-nginx
+LAST DEPLOYED: Mon Jul 30 11:48:32 2018
+NAMESPACE: default
+STATUS: DEPLOYED
+
+RESOURCES:
+==> v1beta1/Deployment
+NAME                                                             DESIRED  CURRENT  UP-TO-DATE  AVAILABLE  AGE
+challenge-ingress-controller-nginx-nginx-ingress-controller      1        1        1           0          0s
+challenge-ingress-controller-nginx-nginx-ingress-default-backen  1        1        1           0          0s
+
+==> v1beta1/PodDisruptionBudget
+NAME                                                             MIN AVAILABLE  MAX UNAVAILABLE  ALLOWED DISRUPTIONS  AGE
+challenge-ingress-controller-nginx-nginx-ingress-controller      1              N/A              0                    0s
+challenge-ingress-controller-nginx-nginx-ingress-default-backen  1              N/A              0                    0s
+
+==> v1/ConfigMap
+NAME                                                         DATA  AGE
+challenge-ingress-controller-nginx-nginx-ingress-controller  1     1s
+
+==> v1/ServiceAccount
+NAME                                              SECRETS  AGE
+challenge-ingress-controller-nginx-nginx-ingress  1        1s
+
+==> v1beta1/ClusterRoleBinding
+NAME                                              AGE
+challenge-ingress-controller-nginx-nginx-ingress  0s
+
+==> v1beta1/Role
+NAME                                              AGE
+challenge-ingress-controller-nginx-nginx-ingress  0s
+
+==> v1beta1/RoleBinding
+NAME                                              AGE
+challenge-ingress-controller-nginx-nginx-ingress  0s
+
+==> v1/Service
+NAME                                                             TYPE          CLUSTER-IP     EXTERNAL-IP  PORT(S)                     AGE
+challenge-ingress-controller-nginx-nginx-ingress-controller      LoadBalancer  10.106.23.131  <pending>    80:30529/TCP,443:31827/TCP  0s
+challenge-ingress-controller-nginx-nginx-ingress-default-backen  ClusterIP     10.108.91.185  <none>       80/TCP                      0s
+
+==> v1/Pod(related)
+NAME                                                             READY  STATUS             RESTARTS  AGE
+challenge-ingress-controller-nginx-nginx-ingress-controllekwppx  0/1    ContainerCreating  0         0s
+challenge-ingress-controller-nginx-nginx-ingress-default-bpg5np  0/1    ContainerCreating  0         0s
+
+==> v1beta1/ClusterRole
+NAME                                              AGE
+challenge-ingress-controller-nginx-nginx-ingress  0s
+
+
+NOTES:
+The nginx-ingress controller has been installed.
+It may take a few minutes for the LoadBalancer IP to be available.
+You can watch the status by running 'kubectl --namespace default get services -o wide -w challenge-ingress-controller-nginx-nginx-ingress-controller'
+
+An example Ingress that makes use of the controller:
+
+  apiVersion: extensions/v1beta1
+  kind: Ingress
+  metadata:
+    annotations:
+      kubernetes.io/ingress.class: nginx
+    name: example
+    namespace: foo
+  spec:
+    rules:
+      - host: www.example.com
+        http:
+          paths:
+            - backend:
+                serviceName: exampleService
+                servicePort: 80
+              path: /
+    # This section is only required if TLS is to be enabled for the Ingress
+    tls:
+        - hosts:
+            - www.example.com
+          secretName: example-tls
+
+If TLS is enabled for the Ingress, a Secret containing the certificate and key must also be provided:
+
+  apiVersion: v1
+  kind: Secret
+  metadata:
+    name: example-tls
+    namespace: foo
+  data:
+    tls.crt: <base64 encoded cert>
+    tls.key: <base64 encoded key>
+  type: kubernetes.io/tls
+
+```
+
+
+#### Ingress
+Vá para o diretório do api-gateway e criee o recurso do ingress.
+
+```bash
+$ cd api-gateway
+$ kubectl create -f src/main/fabric8/ingress.yml 
+```
+
+
+
 
 ---
 
@@ -230,6 +348,9 @@ mvn clean install fabric8:deploy
 
 
 * [Helm Redis Chart](https://github.com/helm/charts/tree/master/stable/redis "Redis")
+
+
+* [Helm Ingress Nginx](Ref.: https://kubernetes.github.io/ingress-nginx/deploy/ "Ingress Nginx")
 
 
 * [K8s ConfigMap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap#add-configmap-data-to-a-volume "ConfigMap") 
