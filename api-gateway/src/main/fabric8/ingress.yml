@@ -1,0 +1,8 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: api-challenge-ingress
+spec:
+  backend:
+    serviceName: api-gateway
+    servicePort: 8080
