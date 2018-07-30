@@ -26,7 +26,7 @@ spec:
             - name: DB_SECRET_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: todo-db-service-postgresql
+                  name: todo-service-db-postgresql
                   key: postgres-password
           volumeMounts:
             - name: config

@@ -11,7 +11,7 @@ data:
         #properties:
         #  hibernate.temp.use_jdbc_metadata_defaults: false
       datasource:
-        url: jdbc:postgresql://todo-db-service-postgresql:5432/todo-db
+        url: jdbc:postgresql://todo-service-db-postgresql:5432/todo-db
         username: todo-user
         # SECRET_PASSWORD especificada no descritor deployment.yml
         password: ${DB_SECRET_PASSWORD}
