@@ -1,7 +1,7 @@
 # jsprbt-fa8-k8s
 PoC de Java 8+ Spring Boot com Kubernetes 
 
-
+![deployment strategy](Slide1.png)
 
 ---
 # Pré-Requisitos
