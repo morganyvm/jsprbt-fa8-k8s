@@ -3,12 +3,22 @@ metadata:
 data:
   application.yml: |
     # spring application yaml file
+    api:
+      ratelimiter:
+        redis:
+          cluster:
+            master:
+              host-name: api-gateway-rate-limit-db-redis-master
+            slaves:
+            - hots-name: api-gateway-rate-limit-db-redis-slave
+              port: 6379
+          
     spring:
       cloud:
         gateway:
           routes:
           - id: requestratelimiter_route
-            uri: http://todo-service:8080/todos
+            uri: http://todo-service:8080/todos/
             predicates:
             - Path=/todos/{segment}
             filters:
@@ -16,5 +26,3 @@ data:
               args:
                 redis-rate-limiter.replenishRate: 10
                 redis-rate-limiter.burstCapacity: 20
-
-

@@ -1,0 +1,33 @@
+server:
+  port: 8010
+  
+api:
+  ratelimiter:
+    redis:
+      cluster:
+        master:
+          host-name: api-gateway-rate-limit-db-redis-master
+        slaves:
+        - hots-name: api-gateway-rate-limit-db-redis-slave
+          port: 6379
+  
+# spring application yaml file
+spring:
+  jmx:
+    enabled: false
+  cloud:
+    gateway:
+      routes:
+      - id: requestratelimiter_route
+        uri: http://localhost:8020/todos
+        predicates:
+        - Path=/todos{segment}
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.http.server.reactive: DEBUG
+    org.springframework.web.reactive: DEBUG
+    reactor.ipc.netty: DEBUG
+
+management.endpoints.web.exposure.include: '*'

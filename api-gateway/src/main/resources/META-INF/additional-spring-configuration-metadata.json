@@ -1,0 +1,44 @@
+{
+	"groups": [
+		{
+			"sourceType": "com.github.morganyvm.config.ratelmiter.RateLimiterRedisConfig",
+			"name": "api.ratelimiter.redis",
+			"type": "com.github.morganyvm.config.ratelmiter.RateLimiterRedisConfig",
+			"description": "Declares Redis Rate Limiter Standalone instance configuration"
+		}
+	],
+	"properties": [
+		{
+			"sourceType": "com.github.morganyvm.config.ratelimiter.ServerProperties",
+			"name": "api.ratelimiter.redis.stand-alone.host-name",
+			"type": "java.lang.String",
+			"description": "A description for 'api.ratelimiter.redis.stand-alone.host-name'"
+		},
+		{
+			"sourceType": "com.github.morganyvm.config.ratelimiter.ServerProperties",
+			"name": "api.ratelimiter.redis.stand-alone.port",
+			"type": "java.lang.Integer",
+			"description": "A description for 'api.ratelimiter.redis.stand-alone.port'",
+			"defaultValue": 6379
+		},
+		{
+			"sourceType": "com.github.morganyvm.config.ratelimiter.ServerProperties",
+			"name": "api.ratelimiter.redis.cluster.master.host-name",
+			"type": "java.lang.String",
+			"description": "A description for 'api.ratelimiter.redis.cluster.master.host-name'"
+		},
+		{
+			"sourceType": "com.github.morganyvm.config.ratelimiter.ServerProperties",
+			"name": "api.ratelimiter.redis.cluster.master.port",
+			"type": "java.lang.Integer",
+			"description": "A description for 'api.ratelimiter.redis.cluster.master.host'",
+			"defaultValue": 6379
+		},
+		{
+			"sourceType": "com.github.morganyvm.config.ratelmiter.ClusterProperties",
+			"name": "api.ratelimiter.redis.cluster.slaves",
+			"type": "java.util.List<com.github.morganyvm.config.ratelimiter.ServerProperties>",
+			"description": "A description for 'api.ratelimiter.redis.cluster.slaves[]'"
+		}
+	]
+}
