@@ -2,7 +2,19 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: api-challenge-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  namespace: default
 spec:
   backend:
     serviceName: api-gateway
     servicePort: 8080
+
+#  rules:
+#    - host: api.morganyvm.github.io
+#      http:
+#        paths:
+#          - backend:
+#              serviceName: api-gateway
+#              servicePort: 8080
+#            path: /           
