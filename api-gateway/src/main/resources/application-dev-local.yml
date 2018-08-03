@@ -1,15 +1,12 @@
 server:
   port: 8010
-  
-api:
-  ratelimiter:
-    redis:
-      cluster:
-        master:
-          host-name: api-gateway-rate-limit-db-redis-master
-        slaves:
-        - hots-name: api-gateway-rate-limit-db-redis-slave
-          port: 6379
+  # http://cloud.spring.io/spring-cloud-gateway/single/spring-cloud-gateway.html#_tls_ssl
+#  ssl:
+#    enabled: true
+#    key-alias: scg
+#    key-store-password: scg1234
+#    key-store: classpath:scg-keystore.p12
+#    key-store-type: PKCS12
   
 # spring application yaml file
 spring:
@@ -17,17 +14,67 @@ spring:
     enabled: false
   cloud:
     gateway:
+#      globalcors:
+#        corsConfigurations:
+#          '[/**]':
+#            allowedOrigins: "localhost"
+#            allowedMethods:
+#            - GET
+      # http://cloud.spring.io/spring-cloud-gateway/single/spring-cloud-gateway.html#_tls_ssl
+      httpclient:
+#       default-filters:
+        ssl:
+          # Using an insecure trust manager is not suitable for production.
+          useInsecureTrustManager: true
+#          trustedX509Certificates:
+#            - cert1.pem
+#            - cert2.pem
       routes:
-      - id: requestratelimiter_route
-        uri: http://localhost:8020/todos
-        predicates:
-        - Path=/todos{segment}
+        - id: httpbin-rewrite
+          uri: http://httpbin.org
+          predicates:
+            - Path=/httpbin/**
+          filters:
+            - RewritePath=/httpbin/(?<segment>.*), /anything/$\{segment}
+         
+        #- id: httpbin-simple
+        #  uri: http://httpbin.org
+        #  predicates:
+        #    - Path=/httpbin/{id_todo}
+        #  filters:
+        #    - SetPath=/anything/{id_todo}
+        #    
+        #- id: httpbin-composite
+        #  uri: http://httpbin.org
+        #  predicates:
+        #    - Path=/httpbin/{id_todo}/tests/{id_test}
+        #  filters:
+        #    - SetPath=/anything/{id_todo}/tests/{id_test}
+            
+        - id: todos-route
+          uri: http://localhost:8020
+          predicates:
+            - Path=/todos/{id}
+          filters:
+            - SetPath=/todos/{id}
+          
+        - id: todos-testes-route
+          uri: http://localhost:8020
+          predicates:
+            - Path=/todos/{id_todo}/tests/{id_test}
+          filters:
+            - SetPath=/todos/{id_todo}/tests/{id_test}
 
 logging:
   level:
+#    root: DEBUG
     org.springframework.cloud.gateway: TRACE
     org.springframework.http.server.reactive: DEBUG
     org.springframework.web.reactive: DEBUG
     reactor.ipc.netty: DEBUG
 
-management.endpoints.web.exposure.include: '*'
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

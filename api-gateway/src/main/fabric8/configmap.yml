@@ -17,12 +17,13 @@ data:
       cloud:
         gateway:
           routes:
-          - id: requestratelimiter_route
-            uri: http://todo-service:8080/todos/
+          - id: todos_route
+            uri: http://todo-service:8080
             predicates:
-            - Path=/todos/{segment}
+              - Path=/todos/**
             filters:
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 10
-                redis-rate-limiter.burstCapacity: 20
+              - name: RequestRateLimiter
+                args:
+                  redis-rate-limiter.replenishRate: 10
+                  redis-rate-limiter.burstCapacity: 20
+              - RewritePath=/todos/(?<segment>.*), /todos/$\{segment}
