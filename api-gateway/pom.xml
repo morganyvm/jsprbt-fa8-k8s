@@ -95,9 +95,9 @@
 						<config>
 							<!-- Expõen API Gateway -->
 							<fmp-service>
-								<type>LoadBalancer</type>
-								<expose>true</expose>
-<!-- 								<port>80:8080</port> -->
+								<!-- <type>LoadBalancer</type> -->
+								<!-- <expose>true</expose> -->
+								<!-- <port>80:8080</port> -->
 							</fmp-service>
 						</config>
 					</enricher>
