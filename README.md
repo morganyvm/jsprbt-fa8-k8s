@@ -56,6 +56,7 @@ de recursos Kubernetes pré-configurados.
 Criação do banco de dados postgresql para o todo-service
 
 ```bash
+$ helm init 
 $ helm install --name todo-service-db \
   --set postgresUser=todo-user,postgresPassword=${random},postgresDatabase=todo-db \
     stable/postgresql
