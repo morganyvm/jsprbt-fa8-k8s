@@ -8,8 +8,9 @@ data:
         hibernate:
           ddl-auto: update
         database-platform: org.hibernate.dialect.PostgreSQL9Dialect
-        #properties:
+        properties:
         #  hibernate.temp.use_jdbc_metadata_defaults: false
+          hibernate.jdbc.lob.non_contextual_creation: true
       datasource:
         url: jdbc:postgresql://todo-service-db-postgresql:5432/todo-db
         username: todo-user
