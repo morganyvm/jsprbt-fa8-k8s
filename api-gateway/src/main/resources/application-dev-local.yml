@@ -14,15 +14,31 @@ spring:
     enabled: false
   cloud:
     gateway:
-#      globalcors:
-#        corsConfigurations:
-#          '[/**]':
-#            allowedOrigins: "localhost"
-#            allowedMethods:
-#            - GET
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            #allowedOrigins: localhost
+            allowedMethods:
+              - POST
+              - GET
+              - OPTIONS
+              - DELETE
+              - PUT
+              - PATCH
+            allowedHeaders: 
+              - Origin
+              - Accept
+              - X-Requested-With
+              - Content-Type
+              - Access-Control-Request-Method
+              - Access-Control-Request-Headers
+              - Authorization
+            allowCredentials: true
+            maxAge: 3600
+      #default-filters:
       # http://cloud.spring.io/spring-cloud-gateway/single/spring-cloud-gateway.html#_tls_ssl
       httpclient:
-#       default-filters:
         ssl:
           # Using an insecure trust manager is not suitable for production.
           useInsecureTrustManager: true
@@ -54,16 +70,23 @@ spring:
         - id: todos-route
           uri: http://localhost:8020
           predicates:
-            - Path=/todos/{id}
+            - Path=/todos/**
           filters:
-            - SetPath=/todos/{id}
-          
-        - id: todos-testes-route
+            - RewritePath=/todos/(?<segment>.*), /todos/$\{segment}
+            
+        - id: profile-todos-route
           uri: http://localhost:8020
           predicates:
-            - Path=/todos/{id_todo}/tests/{id_test}
+            - Path=/profile/todos/**
           filters:
-            - SetPath=/todos/{id_todo}/tests/{id_test}
+            - RewritePath=/profile/todos/(?<segment>.*), /profile/todos/$\{segment}
+          
+        #- id: todos-testes-route
+        #  uri: http://localhost:8020
+        #  predicates:
+        #    - Path=/todos/{id_todo}/tests/{id_test}
+        #  filters:
+        #    - SetPath=/todos/{id_todo}/tests/{id_test}
 
 logging:
   level:
@@ -73,8 +96,4 @@ logging:
     org.springframework.web.reactive: DEBUG
     reactor.ipc.netty: DEBUG
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+management.endpoints.web.exposure.include: "*"
