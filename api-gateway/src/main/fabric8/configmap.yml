@@ -12,18 +12,34 @@ data:
             slaves:
             - hots-name: api-gateway-rate-limit-db-redis-slave
               port: 6379
-          
+    logging:
+      level:
+        org.springframework.cloud.gateway: TRACE
+        org.springframework.http.server.reactive: DEBUG
+        org.springframework.web.reactive: DEBUG
+        reactor.ipc.netty: DEBUG
+            
     spring:
       cloud:
         gateway:
           routes:
-          - id: todos_route
-            uri: http://todo-service:8080
-            predicates:
-              - Path=/todos/**
-            filters:
-              - name: RequestRateLimiter
-                args:
-                  redis-rate-limiter.replenishRate: 10
-                  redis-rate-limiter.burstCapacity: 20
-              - RewritePath=/todos/(?<segment>.*), /todos/$\{segment}
+            - id: todos_route
+              uri: http://todo-service:8080
+              predicates:
+                - Path=/todos/**
+              filters:
+                #- name: RequestRateLimiter
+                #  args:
+                #    redis-rate-limiter.replenishRate: 10
+                #    redis-rate-limiter.burstCapacity: 20
+                - RewritePath=/todos/(?<segment>.*), /todos/$\{segment}
+            - id: profile_todos_route
+              uri: http://todo-service:8080
+              predicates:
+                - Path=/profile/todos/**
+              filters:
+                #- name: RequestRateLimiter
+                #  args:
+                #    redis-rate-limiter.replenishRate: 10
+                #    redis-rate-limiter.burstCapacity: 20
+                - RewritePath=/profile/todos/(?<segment>.*), /profile/todos/$\{segment}
