@@ -90,18 +90,18 @@
 				<groupId>io.fabric8</groupId>
 				<artifactId>fabric8-maven-plugin</artifactId>
 				<version>3.5.40</version>
-				<configuration>
-					<enricher>
-						<config>
-							<!-- Expõen API Gateway -->
-							<fmp-service>
-								<!-- <type>LoadBalancer</type> -->
-								<!-- <expose>true</expose> -->
-								<!-- <port>80:8080</port> -->
-							</fmp-service>
-						</config>
-					</enricher>
-				</configuration>
+<!-- 				<configuration> -->
+<!-- 					<enricher> -->
+<!-- 						<config> -->
+<!-- 							Expõen API Gateway -->
+<!-- 							<fmp-service> -->
+<!-- 								<type>LoadBalancer</type> -->
+<!-- 								<expose>true</expose> -->
+<!-- 								<port>8080:8080</port> -->
+<!-- 							</fmp-service> -->
+<!-- 						</config> -->
+<!-- 					</enricher> -->
+<!-- 				</configuration> -->
 				<executions>
 					<!-- Connect fabric8:resource, fabric8:build and fabric8:helm to lifecycle 
 						phases -->
