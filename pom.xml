@@ -15,6 +15,10 @@
 	<prerequisites>
 		<maven>[3.5.3,)</maven>
 	</prerequisites>
+	
+	<scm>
+		<developerConnection>scm:git:https://github.com/morganyvm/jsprbt-fa8-k8s.git</developerConnection>
+	</scm>
 
 	<modules>
 		<module>api-gateway</module>
