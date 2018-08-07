@@ -4,7 +4,7 @@
 
 	<groupId>com.github.morganyvm</groupId>
 	<artifactId>api-gateway</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>api-gateway</name>
@@ -156,9 +156,4 @@
 			</dependencies>
 		</profile>
 	</profiles>
-
-
-  <scm>
-    <tag>v0.0.1</tag>
-  </scm>
 </project>

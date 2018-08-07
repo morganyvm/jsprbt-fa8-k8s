@@ -4,7 +4,7 @@
 
 	<groupId>com.github.morganyvm.todo</groupId>
 	<artifactId>todo-service</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>todo-service</name>
@@ -154,9 +154,4 @@
 			</dependencies>
 		</profile>
 	</profiles>
-
-
-  <scm>
-    <tag>v0.0.1</tag>
-  </scm>
 </project>
