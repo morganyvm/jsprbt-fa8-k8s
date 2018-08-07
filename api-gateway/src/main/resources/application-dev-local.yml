@@ -37,14 +37,16 @@ spring:
             allowCredentials: true
             maxAge: 3600
       #default-filters:
+        #- SecureHeaders
+        #- Hystrix=default
       # http://cloud.spring.io/spring-cloud-gateway/single/spring-cloud-gateway.html#_tls_ssl
       httpclient:
         ssl:
           # Using an insecure trust manager is not suitable for production.
           useInsecureTrustManager: true
-#          trustedX509Certificates:
-#            - cert1.pem
-#            - cert2.pem
+          #trustedX509Certificates:
+          #  - cert1.pem
+          #  - cert2.pem
       routes:
         - id: httpbin-rewrite
           uri: http://httpbin.org
@@ -90,10 +92,13 @@ spring:
 
 logging:
   level:
-#    root: DEBUG
+    #root: DEBUG
     org.springframework.cloud.gateway: TRACE
     org.springframework.http.server.reactive: DEBUG
     org.springframework.web.reactive: DEBUG
     reactor.ipc.netty: DEBUG
 
+
 management.endpoints.web.exposure.include: "*"
+
+#hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 5000
