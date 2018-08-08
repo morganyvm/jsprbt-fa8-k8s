@@ -375,4 +375,9 @@ mvn clean install fabric8:deploy
 
 * [Fabric8 Maven Plugin](https://maven.fabric8.io "fabric8")
 
+
 * [Fabric8 Spring Boot on Kubernetes](https://spring.fabric8.io "spring boot on k8s")
+
+
+* [Istio](https://istio.io "Istio Service Mesh")
+
