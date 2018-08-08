@@ -38,18 +38,31 @@ git clone https://github.com/morganyvm/jsprbt-fa8-k8s.git
 
 * [Fabric8 (plugin maven para build e deployment no kubernetes);](http://spring.fabric8.io "fabric8")  
 
+* Docker Edge com Kubernetes habilitado
 
 ## Java
 Necessário para o ambiente de desenvolvimento (`build`, testes e empacotamento) e para a execução das aplicações spring boot, executando dentro dos `containers` Docker.
 Para os `containers` Docker a implementação selecionada é o OpenJDK. E a versão mínima da JVM é a versão 8 (OpenJDK 8 update 131), pois, somente à partir dessa versão do OpenJDK a JVM passa a entender os limites de memória e cpu dos `containers` Docker.
 
-
 ## Helm
 [Helm](https://www.helm.sh helm) é uma ferramenta para gerenciar charts Kubernetes. Charts são pacotes 
 de recursos Kubernetes pré-configurados.
 
+
 ### Instalacao
 * https://docs.helm.sh/using_helm/#installing-helm
+
+
+### Istio 1.0.0
+* Instalação veja [Download and prepare for the installation](https://istio.io/docs/setup/kubernetes/download-release/#download-and-prepare-for-the-installation "Istio download-and-prepare-for-the-installation")
+
+
+* [Habilitação de automatic sidecar](https://istio.io/docs/setup/kubernetes/sidecar-injection/#automatic-sidecar-injection "Enabling Automatic Sidecar").
+
+```bash
+$ 
+$ kubectl label namespace default istio-injection=enabled
+```
 
 
 ### Postgresql
