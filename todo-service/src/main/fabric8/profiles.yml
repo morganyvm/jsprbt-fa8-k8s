@@ -1,8 +1,0 @@
-#See https://maven.fabric8.io/#profiles-extended 
-#See https://github.com/geoand/fmp-istio-enricher
-- name: istio-spring-boot-app
-  extends: default
-  enricher:
-    # The order given in "includes" is the order in which enrichers are called
-    includes:
-    - fmp-istio-enricher
