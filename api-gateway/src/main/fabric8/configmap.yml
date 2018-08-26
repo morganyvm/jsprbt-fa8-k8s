@@ -18,10 +18,48 @@ data:
         org.springframework.http.server.reactive: DEBUG
         org.springframework.web.reactive: DEBUG
         reactor.ipc.netty: DEBUG
+    #management:
+    #  endpoints:
+    #    web:
+    #      exposure:
+    #        include: "info, health, metrics"
             
     spring:
       cloud:
         gateway:
+          globalcors:
+            corsConfigurations:
+              '[/**]':
+                allowedOrigins: "*"
+                #allowedOrigins: localhost
+                allowedMethods:
+                  - POST
+                  - GET
+                  - OPTIONS
+                  - DELETE
+                  - PUT
+                  - PATCH
+                allowedHeaders: 
+                  - Origin
+                  - Accept
+                  - X-Requested-With
+                  - Content-Type
+                  - Access-Control-Request-Method
+                  - Access-Control-Request-Headers
+                  - Authorization
+                allowCredentials: true
+                maxAge: 3600
+          #default-filters:
+          #  - SecureHeaders
+          #  - Hystrix=default
+          # http://cloud.spring.io/spring-cloud-gateway/single/spring-cloud-gateway.html#_tls_ssl
+          httpclient:
+            ssl:
+              # Using an insecure trust manager is not suitable for production.
+              useInsecureTrustManager: true
+              #trustedX509Certificates:
+              #  - cert1.pem
+              #  - cert2.pem
           routes:
             - id: todos_route
               uri: http://todo-service:8080
