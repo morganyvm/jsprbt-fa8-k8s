@@ -48,6 +48,10 @@ Para os `containers` Docker a implementação selecionada é o OpenJDK. E a vers
 [Helm](https://www.helm.sh helm) é uma ferramenta para gerenciar charts Kubernetes. Charts são pacotes 
 de recursos Kubernetes pré-configurados.
 
+```bash
+$ helm init 
+```
+
 
 ### Instalacao
 * https://docs.helm.sh/using_helm/#installing-helm
@@ -56,84 +60,6 @@ de recursos Kubernetes pré-configurados.
 ### Istio 1.0.0
 * Instalação veja [Download and prepare for the installation](https://istio.io/docs/setup/kubernetes/download-release/#download-and-prepare-for-the-installation "Istio download-and-prepare-for-the-installation")
 
-
-* [Habilitação de automatic sidecar](https://istio.io/docs/setup/kubernetes/sidecar-injection/#automatic-sidecar-injection "Enabling Automatic Sidecar").
-
-```bash
-$ 
-$ kubectl label namespace default istio-injection=enabled
-```
-
-
-### Postgresql
-Criação do banco de dados postgresql para o todo-service
-
-```bash
-$ helm init 
-$ helm install --name todo-service-db \
-  --set postgresUser=todo-user,postgresPassword=${random},postgresDatabase=todo-db \
-    stable/postgresql
-```
-
-A execução do comando acima vai imprimir algo similar ao resultado abaixo: 
-
-```bash
-NAME:   todo-service-db
-LAST DEPLOYED: Mon Jul 30 01:56:46 2018
-NAMESPACE: default
-STATUS: DEPLOYED
-
-RESOURCES:
-==> v1/Secret
-NAME                        TYPE    DATA  AGE
-todo-service-db-postgresql  Opaque  1     0s
-
-==> v1/ConfigMap
-NAME                        DATA  AGE
-todo-service-db-postgresql  0     0s
-
-==> v1/PersistentVolumeClaim
-NAME                        STATUS   VOLUME    CAPACITY  ACCESS MODES  STORAGECLASS  AGE
-todo-service-db-postgresql  Pending  hostpath  0s
-
-==> v1/Service
-NAME                        TYPE       CLUSTER-IP     EXTERNAL-IP  PORT(S)   AGE
-todo-service-db-postgresql  ClusterIP  10.100.137.67  <none>       5432/TCP  0s
-
-==> v1beta1/Deployment
-NAME                        DESIRED  CURRENT  UP-TO-DATE  AVAILABLE  AGE
-todo-service-db-postgresql  1        1        1           0          0s
-
-==> v1/Pod(related)
-NAME                                        READY  STATUS   RESTARTS  AGE
-todo-service-db-postgresql-b4ccff6c4-pb8zw  0/1    Pending  0         0s
-
-
-NOTES:
-PostgreSQL can be accessed via port 5432 on the following DNS name from within your cluster:
-todo-service-db-postgresql.default.svc.cluster.local
-To get your user password run:
-
-    PGPASSWORD=$(kubectl get secret --namespace default todo-service-db-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode; echo)
-
-To connect to your database run the following command (using the env variable from above):
-
-   kubectl run --namespace default todo-service-db-postgresql-client --restart=Never --rm --tty -i --image postgres \
-   --env "PGPASSWORD=$PGPASSWORD" \
-   --command -- psql -U todo-user \
-   -h todo-service-db-postgresql todo-db
-
-
-
-To connect to your database directly from outside the K8s cluster:
-     PGHOST=127.0.0.1
-     PGPORT=5432
-
-     # Execute the following commands to route the connection:
-     export POD_NAME=$(kubectl get pods --namespace default -l "app=postgresql,release=todo-service-db" -o jsonpath="{.items[0].metadata.name}")
-     kubectl port-forward --namespace default $POD_NAME 5432:5432
-
-```
 
 ### Redis
 Criação do Redis para rate-limit do API Gateway
@@ -209,6 +135,81 @@ To connect to your database from outside the cluster execute the following comma
 
 ```
 
+### Istio Automatic Sidecar Injection
+* [Habilitação de automatic sidecar](https://istio.io/docs/setup/kubernetes/sidecar-injection/#automatic-sidecar-injection "Enabling Automatic Sidecar").
+
+```bash
+$ kubectl label namespace default istio-injection=enabled
+```
+
+### Postgresql
+Criação do banco de dados postgresql para o todo-service
+
+```bash
+$ helm install --name todo-service-db \
+  --set postgresUser=todo-user,postgresPassword=${random},postgresDatabase=todo-db \
+    stable/postgresql
+```
+
+A execução do comando acima vai imprimir algo similar ao resultado abaixo: 
+
+```bash
+NAME:   todo-service-db
+LAST DEPLOYED: Mon Jul 30 01:56:46 2018
+NAMESPACE: default
+STATUS: DEPLOYED
+
+RESOURCES:
+==> v1/Secret
+NAME                        TYPE    DATA  AGE
+todo-service-db-postgresql  Opaque  1     0s
+
+==> v1/ConfigMap
+NAME                        DATA  AGE
+todo-service-db-postgresql  0     0s
+
+==> v1/PersistentVolumeClaim
+NAME                        STATUS   VOLUME    CAPACITY  ACCESS MODES  STORAGECLASS  AGE
+todo-service-db-postgresql  Pending  hostpath  0s
+
+==> v1/Service
+NAME                        TYPE       CLUSTER-IP     EXTERNAL-IP  PORT(S)   AGE
+todo-service-db-postgresql  ClusterIP  10.100.137.67  <none>       5432/TCP  0s
+
+==> v1beta1/Deployment
+NAME                        DESIRED  CURRENT  UP-TO-DATE  AVAILABLE  AGE
+todo-service-db-postgresql  1        1        1           0          0s
+
+==> v1/Pod(related)
+NAME                                        READY  STATUS   RESTARTS  AGE
+todo-service-db-postgresql-b4ccff6c4-pb8zw  0/1    Pending  0         0s
+
+
+NOTES:
+PostgreSQL can be accessed via port 5432 on the following DNS name from within your cluster:
+todo-service-db-postgresql.default.svc.cluster.local
+To get your user password run:
+
+    PGPASSWORD=$(kubectl get secret --namespace default todo-service-db-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode; echo)
+
+To connect to your database run the following command (using the env variable from above):
+
+   kubectl run --namespace default todo-service-db-postgresql-client --restart=Never --rm --tty -i --image postgres \
+   --env "PGPASSWORD=$PGPASSWORD" \
+   --command -- psql -U todo-user \
+   -h todo-service-db-postgresql todo-db
+
+
+
+To connect to your database directly from outside the K8s cluster:
+     PGHOST=127.0.0.1
+     PGPORT=5432
+
+     # Execute the following commands to route the connection:
+     export POD_NAME=$(kubectl get pods --namespace default -l "app=postgresql,release=todo-service-db" -o jsonpath="{.items[0].metadata.name}")
+     kubectl port-forward --namespace default $POD_NAME 5432:5432
+
+```
 
 ### Ingress Controller
 Criação do Ingress Controller com o Nginx.
