@@ -45,7 +45,7 @@ Necessário para o ambiente de desenvolvimento (`build`, testes e empacotamento)
 Para os `containers` Docker a implementação selecionada é o OpenJDK. E a versão mínima da JVM é a versão 8 (OpenJDK 8 update 131), pois, somente à partir dessa versão do OpenJDK a JVM passa a entender os limites de memória e cpu dos `containers` Docker.
 
 ## Helm
-[Helm](https://www.helm.sh helm) é uma ferramenta para gerenciar charts Kubernetes. Charts são pacotes 
+[Helm](https://www.helm.sh "helm") é uma ferramenta para gerenciar charts Kubernetes. Charts são pacotes 
 de recursos Kubernetes pré-configurados.
 
 ```bash
