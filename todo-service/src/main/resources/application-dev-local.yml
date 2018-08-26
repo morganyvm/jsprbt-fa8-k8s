@@ -6,3 +6,26 @@ server:
 #    root: DEBUG
 #    org.springframework.security: DEBUG
 
+management:
+#  endpoints:
+#    enabled-by-default: true
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+    metrics:
+      enabled: true
+    #web:
+    #  exposure:
+    #    # default => info, health, metrics
+    #    #include: "*"
+    #    include: "info, health, metrics"
+
+#spring:
+#  jmx:
+#    enabled: false
+#  security:
+#    user:
+#      name: admin
+#      password: admin

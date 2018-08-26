@@ -6,6 +6,7 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 
 @EnableRedisRepositories
 @SpringBootApplication
+//@EnableSwagger2
 public class ApiGatewayApplication {
 
 	public static void main(String[] args) {

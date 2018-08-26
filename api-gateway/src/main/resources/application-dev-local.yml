@@ -7,11 +7,41 @@ server:
 #    key-store-password: scg1234
 #    key-store: classpath:scg-keystore.p12
 #    key-store-type: PKCS12
+
+#logging:
+#  level:
+#    #root: DEBUG
+#    org.springframework.cloud.gateway: TRACE
+#    org.springframework.http.server.reactive: DEBUG
+#    org.springframework.web.reactive: DEBUG
+#    reactor.ipc.netty: DEBUG
+
+#management:
+#  endpoints:
+#    enabled-by-default: true
+#  endpoint:
+#    info:
+#      enabled: true
+#    health:
+#      enabled: true
+#    metrics:
+#      enabled: true
+#    #web:
+#    #  exposure:
+#    #    # default => info, health, metrics
+#    #    #include: "*"
+#    #    include: "info, health, metrics"
+
+#hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 5000
   
 # spring application yaml file
 spring:
-  jmx:
-    enabled: false
+#  jmx:
+#    enabled: false
+#  security:
+#    user:
+#      name: admin
+#      password: admin
   cloud:
     gateway:
       globalcors:
@@ -90,15 +120,3 @@ spring:
         #  filters:
         #    - SetPath=/todos/{id_todo}/tests/{id_test}
 
-logging:
-  level:
-    #root: DEBUG
-    org.springframework.cloud.gateway: TRACE
-    org.springframework.http.server.reactive: DEBUG
-    org.springframework.web.reactive: DEBUG
-    reactor.ipc.netty: DEBUG
-
-
-management.endpoints.web.exposure.include: "*"
-
-#hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 5000
