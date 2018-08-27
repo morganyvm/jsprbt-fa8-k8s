@@ -51,6 +51,25 @@ Para os `containers` Docker a implementação selecionada é o OpenJDK. E a vers
 $ helm init 
 ```
 
+
+### Instalacao
+* https://docs.helm.sh/using_helm/#installing-helm
+
+```bash
+kubectl apply -f install/kubernetes/helm/istio/templates/crds.yaml
+```
+
+
+### Istio 1.0.0
+* Instalação veja [Download and prepare for the installation](https://istio.io/docs/setup/kubernetes/download-release/#download-and-prepare-for-the-installation "Istio download-and-prepare-for-the-installation")
+
+
+### [Instalação Istio]( "Istio + helm")
+
+```bash
+kubectl apply -f install/kubernetes/helm/istio/templates/crds.yaml
+```
+
 ```
 customresourcedefinition.apiextensions.k8s.io "virtualservices.networking.istio.io" created
 customresourcedefinition.apiextensions.k8s.io "destinationrules.networking.istio.io" created
@@ -290,18 +309,6 @@ istio-sidecar-injector  1m
 ==> v1alpha2/prometheus
 handler  1m
 ```
-
-
-### Instalacao
-* https://docs.helm.sh/using_helm/#installing-helm
-
-```bash
-kubectl apply -f install/kubernetes/helm/istio/templates/crds.yaml
-```
-
-
-### Istio 1.0.0
-* Instalação veja [Download and prepare for the installation](https://istio.io/docs/setup/kubernetes/download-release/#download-and-prepare-for-the-installation "Istio download-and-prepare-for-the-installation")
 
 
 ### Redis
