@@ -55,16 +55,12 @@ $ helm init
 ### Instalacao
 * https://docs.helm.sh/using_helm/#installing-helm
 
-```bash
-kubectl apply -f install/kubernetes/helm/istio/templates/crds.yaml
-```
-
 
 ### Istio 1.0.0
 * Instalação veja [Download and prepare for the installation](https://istio.io/docs/setup/kubernetes/download-release/#download-and-prepare-for-the-installation "Istio download-and-prepare-for-the-installation")
 
 
-### [Instalação Istio]( "Istio + helm")
+### [Instalação Istio](https://istio.io/docs/setup/kubernetes/helm-install/ "Istio + helm")
 
 ```bash
 kubectl apply -f install/kubernetes/helm/istio/templates/crds.yaml
