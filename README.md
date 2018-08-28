@@ -29,7 +29,7 @@ Instale o git de acordo com o sistema operacional utilizado.
 Clone este repositório:
 
 ```bash
-git clone https://github.com/morganyvm/jsprbt-fa8-k8s.git
+$ git clone https://github.com/morganyvm/jsprbt-fa8-k8s.git
 ```
 
 ### Dev Environment
@@ -63,7 +63,7 @@ $ helm init
 ### [Instalação Istio](https://istio.io/docs/setup/kubernetes/helm-install/ "Istio + helm")
 
 ```bash
-kubectl apply -f install/kubernetes/helm/istio/templates/crds.yaml
+$ kubectl apply -f install/kubernetes/helm/istio/templates/crds.yaml
 ```
 
 ```
@@ -120,7 +120,7 @@ customresourcedefinition.apiextensions.k8s.io "handlers.config.istio.io" created
 ```
 
 ```bash
-kubectl create -f install/kubernetes/helm/helm-service-account.yaml
+$ kubectl create -f install/kubernetes/helm/helm-service-account.yaml
 ```
 
 ```
@@ -137,7 +137,7 @@ Happy Helming!
 ```
 
 ```bash
-helm init --service-account tiller
+$ helm init --service-account tiller
 ```
 
 ```
@@ -151,7 +151,7 @@ Happy Helming!
 ```
 
 ```bash
-helm install --name istio --namespace istio-system --set grafana.enabled=true --set servicegraph.enabled=true --set tracing.enabled=true  install/kubernetes/helm/istio
+$ helm install --name istio --namespace istio-system --set grafana.enabled=true --set servicegraph.enabled=true --set tracing.enabled=true  install/kubernetes/helm/istio
 ```
 
 ```
@@ -319,7 +319,7 @@ $ helm install --name api-gateway-rate-limit-db \
 
 A execução do comando acima vai imprimir algo similar ao resultado abaixo:
 
-```bash
+```
 NAME:   api-gateway-rate-limit-db
 LAST DEPLOYED: Mon Jul 30 02:36:11 2018
 NAMESPACE: default
@@ -399,7 +399,7 @@ $ helm install --name todo-service-db \
 
 A execução do comando acima vai imprimir algo similar ao resultado abaixo: 
 
-```bash
+```
 NAME:   todo-service-db
 LAST DEPLOYED: Mon Jul 30 01:56:46 2018
 NAMESPACE: default
@@ -461,18 +461,18 @@ To connect to your database directly from outside the K8s cluster:
 Criação do Ingress Controller com o Nginx.
 
 ```bash
-$  helm install stable/nginx-ingress --name challenge-ingress-controller-nginx
+$ helm install stable/nginx-ingress --name challenge-ingress-controller-nginx
 ```
 
 Ou abaixo com RBAC (Role Based Access Control)
  
 ```bash
-$  helm install stable/nginx-ingress --name challenge-ingress-controller-nginx --set rbac.create=true
+$ helm install stable/nginx-ingress --name challenge-ingress-controller-nginx --set rbac.create=true
 ```
 
 A execução do comando acima vai imprimir algo similar ao resultado abaixo:
 
-```bash
+```
 NAME:   challenge-ingress-controller-nginx
 LAST DEPLOYED: Mon Jul 30 11:48:32 2018
 NAMESPACE: default
@@ -591,7 +591,7 @@ Para implantar (`deployment`) os graphs helm no Kubernetes basta executar o coma
   
 
 ```bash
-mvn clean install fabric8:deploy
+$ mvn clean install fabric8:deploy
 ```
 
 ---
