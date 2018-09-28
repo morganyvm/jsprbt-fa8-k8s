@@ -196,4 +196,8 @@
 			</dependencies>
 		</profile>
 	</profiles>
+
+  <scm>
+    <tag>release-0.1.6</tag>
+  </scm>
 </project>
