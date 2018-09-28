@@ -182,4 +182,8 @@
 			</dependencies>
 		</profile>
 	</profiles>
+
+  <scm>
+    <tag>release-0.1.7</tag>
+  </scm>
 </project>
