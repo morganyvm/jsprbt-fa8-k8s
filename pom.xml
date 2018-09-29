@@ -44,6 +44,8 @@
 				<version>2.5.3</version>
 				<configuration>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<!-- do not install just here to not run deploy and/or site-deploy goal(s)  -->
+					<goals>install</goals>
 					<tagNameFormat>v@{project.version}</tagNameFormat>
 				</configuration>
 			</plugin>
