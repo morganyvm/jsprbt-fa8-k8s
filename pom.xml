@@ -17,7 +17,6 @@
 	<scm>
 		<developerConnection>scm:git:https://github.com/morganyvm/jsprbt-fa8-k8s.git</developerConnection>
 		<url>https://github.com/morganyvm/jsprbt-fa8-k8s.git</url>
-		<tag>HEAD</tag>
 	</scm>
 
 	<modules>
