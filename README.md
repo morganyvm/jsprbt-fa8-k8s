@@ -133,20 +133,12 @@ customresourcedefinition.apiextensions.k8s.io/certificates.certmanager.k8s.io cr
 
 
 ```bash
-$ kubectl create -f install/kubernetes/helm/helm-service-account.yaml
+$ kubectl apply -f install/kubernetes/helm/helm-service-account.yaml
 ```
 
 ```
 serviceaccount "tiller" created
 clusterrolebinding.rbac.authorization.k8s.io "tiller" created
-Morganys-MacBook-Pro-2:istio-1.0.0 morgany$ helm init --service-account tiller
-$HELM_HOME has been configured at /Users/morgany/.helm.
-
-Tiller (the Helm server-side component) has been installed into your Kubernetes Cluster.
-
-Please note: by default, Tiller is deployed with an insecure 'allow unauthenticated users' policy.
-For more information on securing your installation see: https://docs.helm.sh/using_helm/#securing-your-helm-installation
-Happy Helming!
 ```
 
 ```bash
