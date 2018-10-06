@@ -65,6 +65,14 @@ $ helm init
 
 
 ```bash
+curl -L https://git.io/getLatestIstio | sh -
+ISTIO_VERSION=$(curl -L -s https://api.github.com/repos/istio/istio/releases/latest | \
+                  grep tag_name | sed "s/ *\"tag_name\": *\"\\(.*\\)\",*/\\1/")
+cd istio-$ISTIO_VERSION
+```
+
+
+```bash
 $ kubectl apply -f install/kubernetes/helm/istio/templates/crds.yaml
 ```
 
