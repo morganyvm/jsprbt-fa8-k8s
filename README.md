@@ -48,11 +48,6 @@ Para os `containers` Docker a implementação selecionada é o OpenJDK. E a vers
 ## Helm
 [Helm](https://www.helm.sh "helm") é uma ferramenta para gerenciar charts Kubernetes. [Charts](https://github.com/helm/charts "charts") são pacotes de recursos Kubernetes pré-configurados.
 
-```bash
-$ helm init 
-```
-
-
 ### Instalacao
 * https://docs.helm.sh/using_helm/#installing-helm
 
@@ -497,7 +492,7 @@ Para implantar (`deployment`) os graphs helm no Kubernetes basta executar o coma
   
 
 ```bash
-$ mvn clean install fabric8:deploy
+$ mvn clean install
 ```
 
 ---
