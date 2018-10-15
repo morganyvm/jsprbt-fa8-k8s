@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.github.morganyvm</groupId>
@@ -25,7 +27,6 @@
 
 		<fabric8.version>2.3.2</fabric8.version>
 		<fabric8.maven.plugin.version>3.5.40</fabric8.maven.plugin.version>
-		<fabric8.generator.from>fabric8/java-alpine-openjdk8-jre</fabric8.generator.from>
 	</properties>
 
 	<dependencies>
@@ -142,20 +143,8 @@
 				<groupId>io.fabric8</groupId>
 				<artifactId>fabric8-maven-plugin</artifactId>
 				<version>3.5.40</version>
-				<!-- <configuration> -->
-				<!-- <enricher> -->
-				<!-- <config> -->
-				<!-- Expõen API Gateway -->
-				<!-- <fmp-service> -->
-				<!-- <type>LoadBalancer</type> -->
-				<!-- <expose>true</expose> -->
-				<!-- <port>8080:8080</port> -->
-				<!-- </fmp-service> -->
-				<!-- </config> -->
-				<!-- </enricher> -->
-				<!-- </configuration> -->
 				<executions>
-					<!-- Connect fabric8:resource, fabric8:build and fabric8:helm to lifecycle 
+					<!-- Connect fabric8:resource, fabric8:build and fabric8:deploy to lifecycle 
 						phases -->
 					<execution>
 						<id>fabric8</id>
@@ -169,8 +158,57 @@
 			</plugin>
 		</plugins>
 	</build>
-
 	<profiles>
+		<profile>
+			<id>hotspot-java8</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<fabric8.generator.from>fabric8/java-alpine-openjdk8-jre</fabric8.generator.from>
+			</properties>
+		</profile>
+		<profile>
+			<id>openj9-java8</id>
+			<properties>
+				<!-- <finalName>${project.build.finalName}</finalName> -->
+				<!-- <targetDir>${project.basedir}/target</targetDir> -->
+				<!-- <fabric8.generator.from>${project.groupId}/${project.artifactId}-openj9-java8:latest</fabric8.generator.from> -->
+				<from.image>adoptopenjdk/openjdk8-openj9:alpine-slim</from.image>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>io.fabric8</groupId>
+						<artifactId>fabric8-maven-plugin</artifactId>
+						<configuration>
+							<images>
+								<image>
+									<alias>${project.artifactId}</alias>
+									<!-- <name>%g/%a:%l</name> -->
+									<name>%g/%a</name>
+									<build>
+										<assembly>
+											<!-- <descriptorRef>artifact-with-dependencies</descriptorRef> -->
+											<descriptorRef>artifact</descriptorRef>
+										</assembly>
+										<dockerFileDir>${project.basedir}/src/main/docker</dockerFileDir>
+									</build>
+								</image>
+							</images>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>graalvm-java8</id>
+			<!-- TODO -->
+		</profile>
+		<profile>
+			<id>shenandoah-java8</id>
+			<!-- TODO -->
+		</profile>
 		<profile>
 			<activation>
 				<jdk>[9,)</jdk>
